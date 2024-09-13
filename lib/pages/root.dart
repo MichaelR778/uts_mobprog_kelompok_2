@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key});
@@ -14,7 +15,7 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FastDrive'),
+        title: const Text('Utiwi'),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -30,7 +31,7 @@ class _RootState extends State<Root> {
         ],
       ),
       body: <Widget>[
-        Text('Home'),
+        HomeScreen(),
         Text('History'),
         Text('Profile'),
       ][currPageIndex],
