@@ -3,6 +3,7 @@ import 'package:uts_mobprog_kelompok_2/pages/root.dart';
 
 void main() {
   runApp(MaterialApp(
+    title: 'Utiwi',
     home: Root(),
   ));
 }
