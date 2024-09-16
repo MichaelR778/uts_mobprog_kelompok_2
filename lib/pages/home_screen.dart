@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/components/neu_box.dart';
+import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
 import 'package:uts_mobprog_kelompok_2/pages/destinations_placeholder.dart';
 
@@ -8,22 +10,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainWidget();
+    List<VehicleOption> options =
+        Provider.of<OrderProvider>(context, listen: false).vehicleOptions;
+
+    return Consumer<OrderProvider>(
+      builder: (context, orderProvider, child) {
+        return orderProvider.orderOngoing
+            ? SafeArea(
+                child: TextButton(
+                  onPressed: () {
+                    orderProvider.orderOngoing = false;
+                  },
+                  child: const Text('Cancel order'),
+                ),
+              )
+            : HomeWidget(options: options);
+      },
+    );
   }
 }
 
-class MainWidget extends StatelessWidget {
-  const MainWidget({
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({
     super.key,
+    required this.options,
   });
 
-  static List<VehicleOption> options = VehicleOption.getOptions();
+  final List<VehicleOption> options;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Padding(
+        const Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
             'Where would you like to go?',
@@ -38,15 +57,15 @@ class MainWidget extends StatelessWidget {
           margin: EdgeInsets.all(20),
           child: Column(
             children: [
-              Image(
+              const Image(
                 image: NetworkImage(
                     'https://cdn.wccftech.com/wp-content/uploads/2020/08/Google-Maps.jpg'),
               ),
               Card(
-                margin: EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(10.0),
                 child: ListTile(
-                  title: Text('Search for a destination'),
-                  trailing: Icon(Icons.search),
+                  title: const Text('Search for a destination'),
+                  trailing: const Icon(Icons.search),
                   onTap: () {
                     // Navigate ke choose destination
                     Navigator.of(context).push(
@@ -62,7 +81,7 @@ class MainWidget extends StatelessWidget {
         ),
 
         const Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Divider(
             height: 40.0,
           ),
@@ -86,7 +105,7 @@ class MainWidget extends StatelessWidget {
             itemCount: options.length,
             itemBuilder: (context, index) {
               return Card(
-                margin: EdgeInsets.fromLTRB(12, 12, 0, 12),
+                margin: const EdgeInsets.fromLTRB(12, 12, 0, 12),
                 elevation: 4,
                 child: SizedBox(
                   width: 150,

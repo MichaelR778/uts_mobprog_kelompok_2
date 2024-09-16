@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
+import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/pages/order_screen.dart';
 
 class DestinationsPlaceholder extends StatelessWidget {
@@ -34,14 +36,20 @@ class DestinationsPlaceholder extends StatelessWidget {
                     leading: Icon(Icons.place),
                     title: Text(locations[index].destination),
                     trailing: Text('${locations[index].distanceKm} Km'),
-                    onTap: () {
-                      Navigator.of(context).push(
+                    onTap: () async {
+                      dynamic orderProvider =
+                          Provider.of<OrderProvider>(context, listen: false);
+                      orderProvider.selectedOption =
+                          orderProvider.vehicleOptions[0];
+                      orderProvider.locations = locations[index];
+                      await Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => OrderScreen(
-                            location: locations[index],
-                          ),
+                          builder: (context) => OrderScreen(),
                         ),
                       );
+                      if (orderProvider.orderOngoing) {
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 );
