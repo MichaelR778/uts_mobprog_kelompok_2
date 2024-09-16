@@ -6,5 +6,6 @@ void main() {
     title: 'Utiwi',
     theme: ThemeData(fontFamily: 'Handjet'),
     home: Root(),
+    debugShowCheckedModeBanner: false,
   ));
 }
