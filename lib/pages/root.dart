@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'input_page.dart'; 
 
 class Root extends StatefulWidget {
   const Root({super.key});
@@ -30,10 +31,26 @@ class _RootState extends State<Root> {
         ],
       ),
       body: <Widget>[
-        Text('Home'),
-        Text('History'),
-        Text('Profile'),
+        _buildHomePage(),
+        const Center(child: Text('History')),
+        const Center(child: Text('Profile')),
       ][currPageIndex],
+    );
+  }
+
+  Widget _buildHomePage() {
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const InputPage(),
+            ),
+          );
+        },
+        child: const Text('GO TIWI'),
+      ),
     );
   }
 }
