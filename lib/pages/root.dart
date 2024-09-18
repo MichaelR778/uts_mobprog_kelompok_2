@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uts_mobprog_kelompok_2/pages/profile.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key});
@@ -32,7 +33,7 @@ class _RootState extends State<Root> {
       body: <Widget>[
         Text('Home'),
         Text('History'),
-        Text('Profile'),
+        ProfilePage(),
       ][currPageIndex],
     );
   }
