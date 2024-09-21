@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-
 class VehicleOption {
   String name;
   int pricePerKm;
-  IconData icon;
+  String iconPath;
 
   VehicleOption({
     required this.name,
     required this.pricePerKm,
-    required this.icon,
+    required this.iconPath,
   });
 }

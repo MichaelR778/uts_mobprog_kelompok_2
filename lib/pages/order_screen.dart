@@ -38,6 +38,23 @@ class OrderScreen extends StatelessWidget {
 
                 Expanded(child: Container()),
 
+                Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(90),
+                        ),
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+
                 // Vehicle option
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,10 +75,27 @@ class OrderScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount: options.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                margin: const EdgeInsets.all(10),
+                              return Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: options[index].name ==
+                                              orderProvider.selectedOption.name
+                                          ? Colors.indigo
+                                          : Colors.grey[300]!),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                margin: const EdgeInsets.all(10.0),
                                 child: ListTile(
-                                  leading: Icon(options[index].icon),
+                                  leading: Container(
+                                    margin: EdgeInsets.all(5),
+                                    width: 40,
+                                    height: 40,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child:
+                                          Image.asset(options[index].iconPath),
+                                    ),
+                                  ),
                                   title: Text(options[index].name),
                                   trailing: Text(
                                     'Rp ${options[index].pricePerKm * location.distanceKm}',
@@ -90,14 +124,18 @@ class OrderScreen extends StatelessWidget {
           // Button untuk order
           floatingActionButton: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.grey[300]!),
               color: Theme.of(context).cardColor,
             ),
             height: 100,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: ElevatedButton(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(5),
+                  backgroundColor: Colors.indigo,
+                ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
                   Navigator.pop(context);
@@ -105,11 +143,19 @@ class OrderScreen extends StatelessWidget {
                 child: ListTile(
                   leading: Text(
                     'Order ${orderProvider.selectedOption.name}',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   trailing: Text(
                     'Rp ${orderProvider.selectedOption.pricePerKm * location.distanceKm}',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

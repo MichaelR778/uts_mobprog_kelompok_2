@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Utiwi',
-      theme: ThemeData(fontFamily: 'Handjet'),
       home: Root(),
       debugShowCheckedModeBanner: false,
     );
