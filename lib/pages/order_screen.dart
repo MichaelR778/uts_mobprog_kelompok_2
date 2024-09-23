@@ -142,7 +142,7 @@ class OrderScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   leading: Text(
-                    'Order ${orderProvider.selectedOption.name}',
+                    'Pesan ${orderProvider.selectedOption.name}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

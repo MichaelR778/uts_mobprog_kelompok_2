@@ -59,13 +59,13 @@ class HomeWidget extends StatelessWidget {
                           children: [
                             const ListTile(
                               title: Text(
-                                'City Destination',
+                                'Tempat Tujuan',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              subtitle: Text('Where would you like to go?'),
+                              subtitle: Text('Mau kemana nih?'),
                             ),
                             Container(
                               decoration: BoxDecoration(
@@ -74,7 +74,7 @@ class HomeWidget extends StatelessWidget {
                               ),
                               margin: const EdgeInsets.all(10.0),
                               child: ListTile(
-                                title: const Text('Search for a destination'),
+                                title: const Text('Cari tempat tujuan'),
                                 trailing: const Icon(Icons.search),
                                 onTap: () {
                                   // Navigate ke choose destination
@@ -104,13 +104,13 @@ class HomeWidget extends StatelessWidget {
                       children: [
                         const ListTile(
                           title: Text(
-                            'Choose What You Need',
+                            'Pilih sesuai kebutuhan',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
-                          subtitle: Text('Available services:'),
+                          subtitle: Text('Layanan yang tersedia:'),
                         ),
                         GridView.builder(
                           shrinkWrap: true,
@@ -206,7 +206,7 @@ class OrderWidget extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text('Is coming to pick you up'),
+                                  Text('Sedang dalam perjalanan'),
                                 ],
                               ),
                             ],
@@ -262,7 +262,7 @@ class OrderWidget extends StatelessWidget {
 
                             Row(
                               children: [
-                                Text('Pick-up location :'),
+                                Text('Lokasi pick-up :'),
                                 Expanded(child: Container()),
                                 Text(orderProvider.locations.pickup),
                               ],
@@ -271,7 +271,7 @@ class OrderWidget extends StatelessWidget {
 
                             Row(
                               children: [
-                                Text('Destination :'),
+                                Text('Tujuan :'),
                                 Expanded(child: Container()),
                                 Text(orderProvider.locations.destination),
                               ],
@@ -300,7 +300,7 @@ class OrderWidget extends StatelessWidget {
                                             listen: false)
                                         .orderOngoing = false;
                                   },
-                                  child: const Text('Cancel order'),
+                                  child: const Text('Batalkan pesanan'),
                                 ),
                                 FilledButton(
                                   onPressed: () {
@@ -308,7 +308,7 @@ class OrderWidget extends StatelessWidget {
                                             listen: false)
                                         .orderOngoing = false;
                                   },
-                                  child: const Text('Finish order'),
+                                  child: const Text('Pesanan selesai'),
                                 ),
                               ],
                             ),
