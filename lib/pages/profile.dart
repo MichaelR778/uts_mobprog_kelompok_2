@@ -38,6 +38,56 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 20),
+            Divider(thickness: 3),
+            SizedBox(height: 10),
+            Text(
+              'No Telepon',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              '08123456789',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[600],
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Jenis Kelamin',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              'Laki-laki',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[600],
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Tanggal Lahir',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              '01 Januari 1990',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[600],
+              ),
+            ),
           ],
         ),
       ),
