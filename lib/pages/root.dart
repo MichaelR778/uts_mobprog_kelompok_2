@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'input_page.dart'; 
+import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key});
@@ -15,7 +15,7 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FastDrive'),
+        title: const Text('Utiwi'),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -31,26 +31,10 @@ class _RootState extends State<Root> {
         ],
       ),
       body: <Widget>[
-        _buildHomePage(),
-        const Center(child: Text('History')),
-        const Center(child: Text('Profile')),
+        HomeScreen(),
+        Text('History'),
+        Text('Profile'),
       ][currPageIndex],
-    );
-  }
-
-  Widget _buildHomePage() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const InputPage(),
-            ),
-          );
-        },
-        child: const Text('GO TIWI'),
-      ),
     );
   }
 }

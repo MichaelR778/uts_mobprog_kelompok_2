@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="uts_mobprog_kelompok_2"
+        android:label="Utiwi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
