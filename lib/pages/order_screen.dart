@@ -3,9 +3,21 @@ import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
+import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart'; // Import your onboarding screen
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
+  final double pickupLatitude;
+  final double pickupLongitude;
+  final double destinationLatitude;
+  final double destinationLongitude;
+
+  OrderScreen({
+    Key? key,
+    required this.pickupLatitude,
+    required this.pickupLongitude,
+    required this.destinationLatitude,
+    required this.destinationLongitude,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class OrderScreen extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
-                // Menampilkan destination di atas
+                // Displaying the pickup and destination locations
                 Card(
                   margin: const EdgeInsets.all(20.0),
                   child: ListTile(
@@ -27,15 +39,13 @@ class OrderScreen extends StatelessWidget {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(location.pickup, style: TextStyle(fontSize: 12.0)),
+                        Text(location.pickup, style: const TextStyle(fontSize: 12.0)),
                         const Divider(height: 15),
-                        Text(location.destination,
-                            style: TextStyle(fontSize: 12.0)),
+                        Text(location.destination, style: const TextStyle(fontSize: 12.0)),
                       ],
                     ),
                   ),
                 ),
-
                 Expanded(child: Container()),
 
                 Row(
@@ -55,15 +65,13 @@ class OrderScreen extends StatelessWidget {
                   ],
                 ),
 
-                // Vehicle option
+                // Vehicle options
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.0),
                       topRight: Radius.circular(16.0),
-                      bottomLeft: Radius.zero,
-                      bottomRight: Radius.zero,
                     ),
                   ),
                   child: Padding(
@@ -78,22 +86,21 @@ class OrderScreen extends StatelessWidget {
                               return Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: options[index].name ==
-                                              orderProvider.selectedOption.name
-                                          ? Colors.indigo
-                                          : Colors.grey[300]!),
+                                    color: options[index].name == orderProvider.selectedOption.name
+                                        ? Colors.indigo
+                                        : Colors.grey[300]!,
+                                  ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 margin: const EdgeInsets.all(10.0),
                                 child: ListTile(
                                   leading: Container(
-                                    margin: EdgeInsets.all(5),
+                                    margin: const EdgeInsets.all(5),
                                     width: 40,
                                     height: 40,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
-                                      child:
-                                          Image.asset(options[index].iconPath),
+                                      child: Image.asset(options[index].iconPath),
                                     ),
                                   ),
                                   title: Text(options[index].name),
@@ -101,11 +108,9 @@ class OrderScreen extends StatelessWidget {
                                     'Rp ${options[index].pricePerKm * location.distanceKm}',
                                     style: const TextStyle(fontSize: 14),
                                   ),
-                                  selected: options[index].name ==
-                                      orderProvider.selectedOption.name,
+                                  selected: options[index].name == orderProvider.selectedOption.name,
                                   onTap: () {
-                                    orderProvider.selectedOption =
-                                        options[index];
+                                    orderProvider.selectedOption = options[index];
                                   },
                                 ),
                               );
@@ -121,7 +126,7 @@ class OrderScreen extends StatelessWidget {
             ),
           ),
 
-          // Button untuk order
+          // Button to submit order
           floatingActionButton: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey[300]!),
@@ -133,12 +138,15 @@ class OrderScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   backgroundColor: Colors.indigo,
                 ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to OnboardingScreen
+                  );
                 },
                 child: ListTile(
                   leading: Text(
@@ -161,8 +169,7 @@ class OrderScreen extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         );
       },
     );
