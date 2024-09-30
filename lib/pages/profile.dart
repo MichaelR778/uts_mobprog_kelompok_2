@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uts_mobprog_kelompok_2/pages/changepin.dart';
+import 'package:uts_mobprog_kelompok_2/pages/root.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -29,7 +30,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'user123@Gmail.com',
+                      'Username Here',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[600],
@@ -99,6 +100,94 @@ class ProfilePage extends StatelessWidget {
               },
               child: Text(
                 'Ubah PIN',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Konfirmasi'),
+                      content: Text('Apa Anda Yakin Keluar Akun? Anda Harus Login Kembali.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Ya'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); 
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => Root()), 
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Silakan Login Kembali.'),
+                              ),
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Tidak'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); 
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text(
+                'Keluar Akun',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Konfirmasi'),
+                      content: Text('Apakah Anda yakin ingin menghapus akun? Semua data dan riwayat Anda akan hilang.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Ya'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); 
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => Root()),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Akun berhasil dihapus.'),
+                              ),
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Tidak'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); 
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text(
+                'Hapus Akun',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

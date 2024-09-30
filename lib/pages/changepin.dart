@@ -23,60 +23,29 @@ class ChangepinState extends State<Changepin> {
             if (enteredPin.length < 6) {
               enteredPin += number.toString();
             }
-
             if (enteredPin.length == 6) {
               if (!isConfirmingPin) {
                 newPin = enteredPin;
                 enteredPin = ''; 
                 isConfirmingPin = true;
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Konfirmasi PIN"),
-                    content: const Text("Silakan Masukkan Kembali PIN Baru Untuk Konfirmasi."),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context); 
-                        },
-                        child: const Text("OK"),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                if (enteredPin == newPin) {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Berhasil!"),
-                      content: const Text("PIN Berhasil Diubah!"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context); 
-                            Navigator.pop(context); 
-                          },
-                          child: const Text("OK"),
-                        ),
-                      ],
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Masukkan Kembali PIN Baru Anda!'),
                     ),
                   );
+              } else {
+                if (enteredPin == newPin) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('PIN Berhasil Diubah!'),
+                    ),
+                  );
+                  Navigator.pop(context); 
                 } else {
                   enteredPin = ''; 
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("PIN Tidak Sesuai"),
-                      content: const Text("PIN Yang Dimasukkan Tidak Sesuai. Silakan Coba Lagi."),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("OK"),
-                        ),
-                      ],
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('PIN Yang Dimasukkan Tidak Sesuai!'),
                     ),
                   );
                 }
