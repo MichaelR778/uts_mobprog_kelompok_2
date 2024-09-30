@@ -30,14 +30,14 @@ class ChangepinState extends State<Changepin> {
                 isConfirmingPin = true;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Masukkan Kembali PIN Baru Anda!'),
+                      content: Text('Masukkan kembali PIN baru kamu!'),
                     ),
                   );
               } else {
                 if (enteredPin == newPin) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('PIN Berhasil Diubah!'),
+                      content: Text('PIN berhasil diubah!'),
                     ),
                   );
                   Navigator.pop(context); 
@@ -45,7 +45,7 @@ class ChangepinState extends State<Changepin> {
                   enteredPin = ''; 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('PIN Yang Dimasukkan Tidak Sesuai!'),
+                      content: Text('PIN yang kamu masukkan tidak sesuai!'),
                     ),
                   );
                 }
@@ -78,7 +78,7 @@ class ChangepinState extends State<Changepin> {
             
             Center(
               child: Text(
-                isConfirmingPin ? 'Konfirmasi PIN Baru' : 'Masukkan PIN Baru',
+                isConfirmingPin ? 'Konfirmasi PIN baru kamu' : 'Masukkan PIN baru kamu',
                 style: const TextStyle(
                   fontSize: 32,
                   color: Colors.black,

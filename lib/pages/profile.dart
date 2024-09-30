@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uts_mobprog_kelompok_2/pages/changepin.dart';
+import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
+import 'package:uts_mobprog_kelompok_2/pages/onboarding_screen.dart';
+import 'package:uts_mobprog_kelompok_2/pages/register_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/root.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -114,7 +117,7 @@ class ProfilePage extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text('Konfirmasi'),
-                      content: Text('Apa Anda Yakin Keluar Akun? Anda Harus Login Kembali.'),
+                      content: Text('Yakin keluar dari akun? Kamu harus login kembali nanti.'),
                       actions: <Widget>[
                         TextButton(
                           child: Text('Ya'),
@@ -122,11 +125,11 @@ class ProfilePage extends StatelessWidget {
                             Navigator.of(context).pop(); 
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => Root()), 
+                              MaterialPageRoute(builder: (context) => LoginScreen()), 
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Silakan Login Kembali.'),
+                                content: Text('Silakan login kembali.'),
                               ),
                             );
                           },
@@ -158,7 +161,7 @@ class ProfilePage extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text('Konfirmasi'),
-                      content: Text('Apakah Anda yakin ingin menghapus akun? Semua data dan riwayat Anda akan hilang.'),
+                      content: Text('Yakin hapus akun kamu?'),
                       actions: <Widget>[
                         TextButton(
                           child: Text('Ya'),
@@ -166,7 +169,7 @@ class ProfilePage extends StatelessWidget {
                             Navigator.of(context).pop(); 
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => Root()),
+                              MaterialPageRoute(builder: (context) => OnboardingScreen()),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
