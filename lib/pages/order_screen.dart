@@ -148,23 +148,40 @@ class OrderScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to OnboardingScreen
                   );
                 },
-                child: ListTile(
-                  leading: Text(
-                    'Pesan ${orderProvider.selectedOption.name}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Spread the content
+                  children: [
+                    // Wrapping the text in Expanded to allocate remaining space
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown, // Scale down the text to avoid overflow
+                        child: Text(
+                          'Pesan ${orderProvider.selectedOption.name}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  trailing: Text(
-                    'Rp ${orderProvider.selectedOption.pricePerKm * location.distanceKm}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                    const SizedBox(width: 10), // Adding some spacing between text and price
+
+                    // Wrapping the price text in Expanded or Flexible
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown, // Scale down the text to avoid overflow
+                        child: Text(
+                          'Rp ${orderProvider.selectedOption.pricePerKm * location.distanceKm}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
