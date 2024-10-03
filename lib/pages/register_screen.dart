@@ -30,6 +30,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _register() async {
     if (_formKey.currentState!.validate()) {
       final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('name', _nameController.text);
+      await prefs.setString('email', _emailController.text);
+      await prefs.setString('phone', _phoneController.text);
+      await prefs.setString('pin', _pinController.text);
+      await prefs.setString('birthDate', 'Tanggal Lahir belum diisi');
+      await prefs.setString('gender', 'Jenis Kelamin belum diisi');
       await prefs.setBool("onboarding", false);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const Root()),
@@ -40,7 +46,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color9,
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
