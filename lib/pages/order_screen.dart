@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
@@ -138,6 +139,8 @@ class OrderScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
+                  Provider.of<ChatProvider>(context, listen: false)
+                      .clearMessage();
                   Navigator.pop(context);
                 },
                 child: ListTile(

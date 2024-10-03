@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
+import 'package:uts_mobprog_kelompok_2/pages/call_page.dart';
+import 'package:uts_mobprog_kelompok_2/pages/chat_page.dart';
 import 'package:uts_mobprog_kelompok_2/pages/destinations_placeholder.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -200,7 +202,7 @@ class OrderWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Kim Jong Un',
+                                    'Driver',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -248,12 +250,26 @@ class OrderWidget extends StatelessWidget {
                                 ),
                                 Expanded(child: Container()),
                                 IconButton.filled(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.phone),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CallPage(),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.phone),
                                 ),
                                 IconButton.filled(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.chat),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChatPage(),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.chat),
                                 ),
                               ],
                             ),
