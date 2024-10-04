@@ -31,7 +31,7 @@ class _ChangePinState extends State<ChangePin> {
       if (_oldPinController.text != registeredPin) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('PIN lama salah!'),
+            content: Text('PIN Tidak Sesuai!'),
             backgroundColor: Colors.red,
           ),
         );
@@ -43,7 +43,7 @@ class _ChangePinState extends State<ChangePin> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('PIN berhasil diubah!'),
+            content: Text('PIN Berhasil Diubah!'),
             backgroundColor: Colors.green,
           ),
         );
@@ -51,7 +51,7 @@ class _ChangePinState extends State<ChangePin> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('PIN baru dan konfirmasi tidak cocok!'),
+            content: Text('PIN Tidak Sesuai!'),
             backgroundColor: Colors.red,
           ),
         );
@@ -64,7 +64,11 @@ class _ChangePinState extends State<ChangePin> {
     return Scaffold(
       backgroundColor: color9,
       appBar: AppBar(
-        title: const Text('Ganti PIN'),
+        title: const Text('Ganti PIN', 
+          style: TextStyle(
+            color: color9,
+          ),
+        ),
         backgroundColor: color1,
       ),
       body: Padding(
@@ -97,7 +101,7 @@ class _ChangePinState extends State<ChangePin> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'PIN tidak boleh kosong';
+                    return 'PIN Tidak Boleh Kosong!';
                   }
                   return null;
                 },
@@ -126,7 +130,7 @@ class _ChangePinState extends State<ChangePin> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'PIN tidak boleh kosong';
+                    return 'PIN Tidak Boleh Kosong!';
                   }
                   return null;
                 },
@@ -155,7 +159,7 @@ class _ChangePinState extends State<ChangePin> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Konfirmasi PIN tidak boleh kosong';
+                    return 'Konfirmasi PIN Tidak Boleh Kosong!';
                   }
                   return null;
                 },

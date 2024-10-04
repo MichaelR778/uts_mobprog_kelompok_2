@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/pages/edit_profile.dart';
-import 'package:uts_mobprog_kelompok_2/pages/changepin.dart';
+import 'package:uts_mobprog_kelompok_2/pages/changepin.dart'; 
 import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/onboarding_screen.dart';
-import 'package:uts_mobprog_kelompok_2/pages/register_screen.dart';
-import 'package:uts_mobprog_kelompok_2/pages/root.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -37,6 +35,97 @@ class _ProfilePageState extends State<ProfilePage> {
       birthDate = prefs.getString('birthDate') ?? '';
       gender = prefs.getString('gender') ?? '';
     });
+  }
+
+  Future<void> _logout() async {
+    bool confirmLogout = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi'),
+          content: const Text('Yakin keluar dari akun? Kamu harus login kembali nanti.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () {
+                Navigator.of(context).pop(true); 
+              },
+            ),
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    ) ?? false;
+
+    if (confirmLogout) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Silakan Login Kembali!'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _deleteAccount() async {
+    bool confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi'),
+          content: const Text('Yakin hapus akun kamu?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () {
+                Navigator.of(context).pop(true); 
+              },
+            ),
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop(false); 
+              },
+            ),
+          ],
+        );
+      },
+    ) ?? false;
+
+    if (confirmDelete) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Akun Berhasil Dihapus!'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _changePin() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ChangePin()),
+    );
   }
 
   @override
@@ -111,6 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: color6,
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Text(
                   'Tanggal Lahir',
                   style: TextStyle(
@@ -129,107 +219,56 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const SizedBox(height: 20),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChangePin() ),
-                );
-              },
-              child: Text(
-                'Ubah PIN',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _changePin, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: color1,
+                ),
+                child: const Text(
+                  'Ubah PIN',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Konfirmasi'),
-                      content: Text('Yakin keluar dari akun? Kamu harus login kembali nanti.'),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Ya'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); 
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => LoginScreen()), 
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Silakan login kembali.'),
-                              ),
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: Text('Tidak'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); 
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'Keluar Akun',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            const SizedBox(height: 5),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _logout,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: color1,
+                ),
+                icon: const Icon(Icons.logout),
+                label: const Text(
+                  'Keluar Akun',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Konfirmasi'),
-                      content: Text('Yakin hapus akun kamu?'),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Ya'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); 
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => OnboardingScreen()),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Akun berhasil dihapus.'),
-                              ),
-                            );
-                          },
-                        ),
-                        TextButton(
-                          child: Text('Tidak'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); 
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'Hapus Akun',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            const SizedBox(height: 5),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _deleteAccount,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: color1,
+                ),
+                icon: const Icon(Icons.delete), 
+                label: const Text(
+                  'Hapus Akun',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

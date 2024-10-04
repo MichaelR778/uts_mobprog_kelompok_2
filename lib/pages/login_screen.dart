@@ -39,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('gender', 'Jenis Kelamin belum diisi');
       }
 
-      // Jika Pin dan No HP salah
       if (!isPhoneCorrect && !isPinCorrect) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -50,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      // jika No Telepon salah
       if (!isPhoneCorrect) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -61,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      // jika PIN salah
       if (!isPinCorrect) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
