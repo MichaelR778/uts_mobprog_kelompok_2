@@ -1,180 +1,184 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
 
-class Changepin extends StatefulWidget {
-  const Changepin({super.key});
+class ChangePin extends StatefulWidget {
+  const ChangePin({super.key});
 
   @override
-  State<Changepin> createState() => ChangepinState();
+  State<ChangePin> createState() => _ChangePinState();
 }
 
-class ChangepinState extends State<Changepin> {
-  String enteredPin = ''; 
-  String? newPin; 
-  bool isPinVisible = false; 
-  bool isConfirmingPin = false; 
+class _ChangePinState extends State<ChangePin> {
+  final TextEditingController _oldPinController = TextEditingController();
+  final TextEditingController _newPinController = TextEditingController();
+  final TextEditingController _confirmPinController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Widget numButton(int number) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            if (enteredPin.length < 6) {
-              enteredPin += number.toString();
-            }
-            if (enteredPin.length == 6) {
-              if (!isConfirmingPin) {
-                newPin = enteredPin;
-                enteredPin = ''; 
-                isConfirmingPin = true;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Masukkan kembali PIN baru kamu!'),
-                    ),
-                  );
-              } else {
-                if (enteredPin == newPin) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('PIN berhasil diubah!'),
-                    ),
-                  );
-                  Navigator.pop(context); 
-                } else {
-                  enteredPin = ''; 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('PIN yang kamu masukkan tidak sesuai!'),
-                    ),
-                  );
-                }
-              }
-            }
-          });
-        },
-        child: Text(
-          number.toString(),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+  @override
+  void dispose() {
+    _oldPinController.dispose();
+    _newPinController.dispose();
+    _confirmPinController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _changePin() async {
+    if (_formKey.currentState!.validate()) {
+      final prefs = await SharedPreferences.getInstance();
+      String registeredPin = prefs.getString('pin') ?? '';
+
+      if (_oldPinController.text != registeredPin) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('PIN lama salah!'),
+            backgroundColor: Colors.red,
           ),
-        ),
-      ),
-    );
+        );
+        return;
+      }
+
+      if (_newPinController.text == _confirmPinController.text) {
+        await prefs.setString('pin', _newPinController.text);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('PIN berhasil diubah!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context); 
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('PIN baru dan konfirmasi tidak cocok!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          physics: const BouncingScrollPhysics(),
-          children: [
-            const SizedBox(height: 50),
-            
-            Center(
-              child: Text(
-                isConfirmingPin ? 'Konfirmasi PIN baru kamu' : 'Masukkan PIN baru kamu',
-                style: const TextStyle(
-                  fontSize: 32,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
+      backgroundColor: color9,
+      appBar: AppBar(
+        title: const Text('Ganti PIN'),
+        backgroundColor: color1,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _oldPinController,
+                maxLength: 6,
+                decoration: const InputDecoration(
+                  labelText: 'PIN Lama',
+                  prefixIcon: Icon(Icons.lock, color: color1),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
                 ),
-              ),
-            ),
-            
-            const SizedBox(height: 50),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                6,
-                (index) {
-                  return Container(
-                    margin: const EdgeInsets.all(6.0),
-                    width: isPinVisible ? 50 : 16,
-                    height: isPinVisible ? 50 : 16,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6.0),
-                      color: index < enteredPin.length
-                          ? isPinVisible
-                              ? Color(0xFF48CAE4)
-                              : const Color(0xFF0096B7)
-                          : CupertinoColors.black.withOpacity(0.3),
-                    ),
-                    child: isPinVisible && index < enteredPin.length
-                        ? Center(
-                            child: Text(
-                              enteredPin[index],
-                              style: const TextStyle(
-                                fontSize: 30,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          )
-                        : null,
-                  );
+                keyboardType: TextInputType.number,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'PIN tidak boleh kosong';
+                  }
+                  return null;
                 },
               ),
-            ),
-
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  isPinVisible = !isPinVisible; 
-                });
-              },
-              icon: Icon(
-                isPinVisible ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-
-            const SizedBox(height: 40),
-
-            for (var i = 0; i < 3; i++)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                    3,
-                    (index) => numButton(1 + 3 * i + index),
-                  ).toList(),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _newPinController,
+                maxLength: 6,
+                decoration: const InputDecoration(
+                  labelText: 'PIN Baru',
+                  prefixIcon: Icon(Icons.lock, color: color1),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
                 ),
+                keyboardType: TextInputType.number,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'PIN tidak boleh kosong';
+                  }
+                  return null;
+                },
               ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextButton(onPressed: null, child: SizedBox()),
-                  numButton(0),
-                  TextButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          if (enteredPin.isNotEmpty) {
-                            enteredPin = enteredPin.substring(0, enteredPin.length - 1); 
-                          }
-                        },
-                      );
-                    },
-                    child: const Icon(
-                      Icons.backspace,
-                      color: Colors.black,
-                      size: 24,
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _confirmPinController,
+                maxLength: 6,
+                decoration: const InputDecoration(
+                  labelText: 'Konfirmasi PIN',
+                  prefixIcon: Icon(Icons.lock, color: color1),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: color1),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Konfirmasi PIN tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: color2,
+                  ),
+                  onPressed: _changePin,
+                  child: const Text(
+                    'Ubah PIN',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: color9,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
