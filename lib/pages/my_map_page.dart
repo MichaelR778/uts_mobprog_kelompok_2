@@ -53,7 +53,8 @@ class _MyMapPageState extends State<MyMapPage> {
 
   Future<void> _getCurrentLocation() async {
     try {
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       setState(() {
         latitude = position.latitude;
         longitude = position.longitude;
@@ -88,11 +89,13 @@ class _MyMapPageState extends State<MyMapPage> {
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Pickup location set to "Rumah". Tap again for destination.')),
+          SnackBar(content: Text(
+              'Pickup location set to "Rumah". Tap again for destination.')),
         );
       } else if (destinationLocation == null) {
         destinationLocation = latLng;
-        _destinationController.text = 'Universitas Tarumanagara'; // Isi otomatis dengan "Universitas Tarumanagara"
+        _destinationController.text =
+        'Universitas Tarumanagara'; // Isi otomatis dengan "Universitas Tarumanagara"
         markers.add(
           Marker(
             point: destinationLocation!,
@@ -102,7 +105,8 @@ class _MyMapPageState extends State<MyMapPage> {
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Destination location set to "Universitas Tarumanagara". Press submit to continue.')),
+          SnackBar(content: Text(
+              'Destination location set to "Universitas Tarumanagara". Press submit to continue.')),
         );
       }
     });
@@ -118,12 +122,13 @@ class _MyMapPageState extends State<MyMapPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OrderScreen(
-            pickupLatitude: pickupLat,
-            pickupLongitude: pickupLng,
-            destinationLatitude: destLat,
-            destinationLongitude: destLng,
-          ),
+          builder: (context) =>
+              OrderScreen(
+                pickupLatitude: pickupLat,
+                pickupLongitude: pickupLng,
+                destinationLatitude: destLat,
+                destinationLongitude: destLng,
+              ),
         ),
       ).then((_) {
         setState(() {
@@ -133,17 +138,21 @@ class _MyMapPageState extends State<MyMapPage> {
           _pickupController.clear();
           _destinationController.clear();
         });
-        if (Provider.of<OrderProvider>(context, listen: false).orderOngoing) {
+        if (Provider
+            .of<OrderProvider>(context, listen: false)
+            .orderOngoing) {
           Navigator.pop(context);
         }
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select both pickup and destination locations before submitting.')),
+        SnackBar(content: Text(
+            'Please select both pickup and destination locations before submitting.')),
       );
     }
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,21 +182,37 @@ class _MyMapPageState extends State<MyMapPage> {
             right: 10,
             child: Column(
               children: [
-                TextField(
-                  controller: _pickupController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: 'Pickup Location',
-                    border: OutlineInputBorder(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // Background color for the TextField
+                    borderRadius: BorderRadius.circular(
+                        5), // Optional rounded corners
+                  ),
+                  child: TextField(
+                    controller: _pickupController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      labelText: 'Pickup Location',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
-                TextField(
-                  controller: _destinationController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: 'Destination Location',
-                    border: OutlineInputBorder(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    // Background color for the TextField
+                    borderRadius: BorderRadius.circular(
+                        5), // Optional rounded corners
+                  ),
+                  child: TextField(
+                    controller: _destinationController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      labelText: 'Destination Location',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
               ],

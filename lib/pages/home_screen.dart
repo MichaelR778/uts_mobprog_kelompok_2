@@ -286,7 +286,7 @@ class OrderWidget extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    'Rp ${orderProvider.selectedOption.pricePerKm * (orderProvider.locations?.distanceKm ?? 0)}',
+                                    'Rp ${orderProvider.selectedOption.pricePerKm * (orderProvider.locations?.distanceKm ?? 2)}',
                                   ),
                                 ],
                               ),

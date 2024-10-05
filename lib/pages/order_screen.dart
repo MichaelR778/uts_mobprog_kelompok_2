@@ -24,7 +24,7 @@ class OrderScreen extends StatelessWidget {
     return Consumer<OrderProvider>(
       builder: (context, orderProvider, child) {
         List<VehicleOption> options = orderProvider.vehicleOptions;
-        Locations location = Locations(pickup: 'lokasi 1', destination: 'lokasi 2', distanceKm: 1.0,)
+        Locations location = Locations(pickup: 'Rumah', destination: 'Universitas Tarumanagara', distanceKm: 1.0,)
         ;
 
         return Scaffold(
