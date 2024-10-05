@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/pages/edit_profile.dart';
+import 'package:uts_mobprog_kelompok_2/pages/changepin.dart'; 
 import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -37,12 +38,95 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _logout() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.remove('isLoggedIn');
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(builder: (context) => const LoginScreen()),
-  );
-}
+    bool confirmLogout = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi'),
+          content: const Text('Yakin keluar dari akun? Kamu harus login kembali nanti.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () {
+                Navigator.of(context).pop(true); 
+              },
+            ),
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    ) ?? false;
+
+    if (confirmLogout) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Silakan Login Kembali!'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _deleteAccount() async {
+    bool confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi'),
+          content: const Text('Yakin hapus akun kamu?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () {
+                Navigator.of(context).pop(true); 
+              },
+            ),
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop(false); 
+              },
+            ),
+          ],
+        );
+      },
+    ) ?? false;
+
+    if (confirmDelete) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Akun Berhasil Dihapus!'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _changePin() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ChangePin()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
