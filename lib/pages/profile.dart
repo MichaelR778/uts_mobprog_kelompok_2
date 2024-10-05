@@ -4,7 +4,6 @@ import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/pages/edit_profile.dart';
 import 'package:uts_mobprog_kelompok_2/pages/changepin.dart'; 
 import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
-import 'package:intl/intl.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -43,7 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Konfirmasi'),
-          content: const Text('Yakin keluar dari akun? Kamu harus login kembali nanti.'),
+          content: const Text(
+              'Yakin keluar dari akun? Kamu harus login kembali nanti.'),
           actions: <Widget>[
             TextButton(
               child: const Text('Ya'),
@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
             TextButton(
               child: const Text('Tidak'),
               onPressed: () {
-                Navigator.of(context).pop(false);
+                Navigator.of(context).pop(false); 
               },
             ),
           ],
@@ -64,11 +64,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     if (confirmLogout) {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
+      await prefs.remove('isLoggedIn');
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -150,15 +150,14 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Profile Picture Section
-              Center(
+              const Center(
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage: AssetImage('images/profile.png'),
                   backgroundColor: Colors.transparent,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 name,
                 style: const TextStyle(
@@ -173,29 +172,64 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: color6,
                 ),
               ),
-              const SizedBox(height: 30),          
+              const SizedBox(height: 10),          
                       
               _buildInfoRow('Nomor Telepon', phone, Icons.phone),
               const SizedBox(height: 20),
               _buildInfoRow('Jenis Kelamin', gender, Icons.person),
               const SizedBox(height: 20),
-              _buildInfoRow('Tanggal Lahir', DateFormat('dd-MM-yyyy').format(DateFormat('dd-MM-yyyy').parse(birthDate)), Icons.cake),
+              _buildInfoRow('Tanggal Lahir', birthDate, Icons.cake),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _logout,
+                  onPressed: _changePin, 
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: color3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    backgroundColor: color1,
                   ),
                   child: const Text(
-                    'Logout',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    'Ubah PIN',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _deleteAccount,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: color1,
+                  ),
+                  icon: const Icon(Icons.delete, color: color9,), 
+                  label: const Text(
+                    'Hapus Akun',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _logout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: color1,
+                  ),
+                  icon: const Icon(Icons.logout, color: color9,),
+                  label: const Text(
+                    'Keluar Akun',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

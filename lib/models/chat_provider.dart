@@ -20,14 +20,12 @@ class ChatProvider extends ChangeNotifier {
 
   void userMessage(String text, void Function() scrollDown) async {
     addMessage(Message(text: text, byUser: true));
-    // scrollDown();
     _driverTyping = true;
     notifyListeners();
 
     await Future.delayed(const Duration(milliseconds: 1500));
     _driverTyping = false;
     addMessage(Message(text: 'sabar, macet nih', byUser: false));
-    // scrollDown();
     notifyListeners();
   }
 }

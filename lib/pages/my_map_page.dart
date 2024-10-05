@@ -79,7 +79,7 @@ class _MyMapPageState extends State<MyMapPage> {
     setState(() {
       if (pickupLocation == null) {
         pickupLocation = latLng;
-        _pickupController.text = 'Rumah'; // Isi otomatis dengan "Rumah"
+        _pickupController.text = 'Rumah';
         markers.add(
           Marker(
             point: pickupLocation!,
@@ -95,7 +95,7 @@ class _MyMapPageState extends State<MyMapPage> {
       } else if (destinationLocation == null) {
         destinationLocation = latLng;
         _destinationController.text =
-        'Universitas Tarumanagara'; // Isi otomatis dengan "Universitas Tarumanagara"
+        'Universitas Tarumanagara';
         markers.add(
           Marker(
             point: destinationLocation!,
@@ -185,9 +185,8 @@ class _MyMapPageState extends State<MyMapPage> {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    // Background color for the TextField
                     borderRadius: BorderRadius.circular(
-                        5), // Optional rounded corners
+                        5),
                   ),
                   child: TextField(
                     controller: _pickupController,
@@ -202,9 +201,8 @@ class _MyMapPageState extends State<MyMapPage> {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    // Background color for the TextField
                     borderRadius: BorderRadius.circular(
-                        5), // Optional rounded corners
+                        5), 
                   ),
                   child: TextField(
                     controller: _destinationController,

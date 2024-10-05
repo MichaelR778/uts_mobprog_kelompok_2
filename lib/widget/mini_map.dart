@@ -7,8 +7,7 @@ class MiniMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        // Menggunakan initialCenter dan zoom
-        initialCenter: LatLng(-6.200000, 106.816666), // Koordinat Jakarta
+        initialCenter: LatLng(-6.200000, 106.816666), 
         initialZoom: 13.0,
       ),
       children: [
@@ -19,7 +18,7 @@ class MiniMap extends StatelessWidget {
         MarkerLayer(
           markers: [
             Marker(
-              point: LatLng(-6.200000, 106.816666), // Koordinat Jakarta
+              point: LatLng(-6.200000, 106.816666), 
               width: 80.0,
               height: 80.0,
               child: Container(

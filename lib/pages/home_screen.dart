@@ -16,9 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(
       builder: (context, orderProvider, child) {
-        // Resetting orderOngoing to false when HomeScreen is built
         if (!orderProvider.orderOngoing) {
-          // You can reset any relevant state here if needed
         }
 
         return Scaffold(
@@ -46,7 +44,7 @@ class HomeWidget extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset('images/home_img.png'), // Ensure this image exists
+              Image.asset('images/home_img.png'),
               Column(
                 children: [
                   const SizedBox(height: 125),
@@ -170,7 +168,7 @@ class OrderWidget extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset('images/home_order_img.jpg'), // Ensure this image exists
+              Image.asset('images/home_order_img.jpg'),
               Column(
                 children: [
                   const SizedBox(height: 120),
@@ -222,10 +220,9 @@ class OrderWidget extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        // Bungkus MiniMap dalam SizedBox untuk mengatur tinggi
                         SizedBox(
-                          height: 125, // Atur ukuran map sesuai kebutuhan
-                          child: MiniMap(), // MiniMap yang Anda buat
+                          height: 125,
+                          child: MiniMap(),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(12),

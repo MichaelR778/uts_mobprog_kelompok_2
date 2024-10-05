@@ -69,9 +69,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(bottom: 10), 
-          child: Text('Edit Profile', style: TextStyle(color: color9, fontSize: 24)),
+        title: const Text('Edit Profile', 
+          style: TextStyle(
+            color: color9,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: color9),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         backgroundColor: color1,
         shape: const RoundedRectangleBorder(
@@ -81,6 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
       ),
+      backgroundColor: color9,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(

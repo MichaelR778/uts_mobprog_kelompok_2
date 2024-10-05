@@ -15,7 +15,6 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController textController = TextEditingController();
 
-  // scroll down
   final ScrollController scrollController = ScrollController();
   void scrollDown() {
     scrollController.animateTo(scrollController.position.maxScrollExtent,

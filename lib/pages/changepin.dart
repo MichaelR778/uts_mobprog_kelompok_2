@@ -69,6 +69,18 @@ class _ChangePinState extends State<ChangePin> {
             color: color9,
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: color9),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
         backgroundColor: color1,
       ),
       body: Padding(
@@ -83,6 +95,7 @@ class _ChangePinState extends State<ChangePin> {
                 maxLength: 6,
                 decoration: const InputDecoration(
                   labelText: 'PIN Lama',
+                  counterText: '',
                   prefixIcon: Icon(Icons.lock, color: color1),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: color1),
@@ -112,6 +125,7 @@ class _ChangePinState extends State<ChangePin> {
                 maxLength: 6,
                 decoration: const InputDecoration(
                   labelText: 'PIN Baru',
+                  counterText: '',
                   prefixIcon: Icon(Icons.lock, color: color1),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: color1),
@@ -140,7 +154,8 @@ class _ChangePinState extends State<ChangePin> {
                 controller: _confirmPinController,
                 maxLength: 6,
                 decoration: const InputDecoration(
-                  labelText: 'Konfirmasi PIN',
+                  labelText: 'Konfirmasi PIN Baru',
+                  counterText: '',
                   prefixIcon: Icon(Icons.lock, color: color1),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: color1),

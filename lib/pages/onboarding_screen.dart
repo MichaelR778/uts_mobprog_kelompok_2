@@ -30,7 +30,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Skip Button
                   TextButton(
                       onPressed: () => pageController
                           .jumpToPage(controller.items.length - 1),
@@ -41,7 +40,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             color: color1,
                             fontWeight: FontWeight.w600),
                       )),
-                  // Indicator
                   SmoothPageIndicator(
                     controller: pageController,
                     count: controller.items.length,
@@ -54,7 +52,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       activeDotColor: color1,
                     ),
                   ),
-                  // Next Button
                   TextButton(
                     onPressed: () => pageController.nextPage(
                         duration: const Duration(milliseconds: 600),

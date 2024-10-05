@@ -32,7 +32,6 @@ class OrderScreen extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
-                // Displaying the pickup and destination locations
                 Card(
                   margin: const EdgeInsets.all(20.0),
                   child: ListTile(
@@ -66,7 +65,6 @@ class OrderScreen extends StatelessWidget {
                   ],
                 ),
 
-                // Vehicle options
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   shape: const RoundedRectangleBorder(
@@ -127,7 +125,6 @@ class OrderScreen extends StatelessWidget {
             ),
           ),
 
-          // Button to submit order
           floatingActionButton: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey[300]!),
