@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
+import 'package:uts_mobprog_kelompok_2/pages/call_page.dart';
+import 'package:uts_mobprog_kelompok_2/pages/chat_page.dart';
 import 'package:uts_mobprog_kelompok_2/pages/my_map_page.dart';
 
 import '../widget/mini_map.dart';
@@ -193,17 +195,17 @@ class OrderWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: const EdgeInsets.all(12.0),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Kim Jong Un',
+                                'Driver',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const Text('Sedang dalam perjalanan'),
+                              Text('Sedang dalam perjalanan'),
                             ],
                           ),
                         ),
@@ -240,11 +242,25 @@ class OrderWidget extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   IconButton.filled(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const CallPage(),
+                                      ),
+                                    );
+                                  },
                                     icon: const Icon(Icons.phone),
                                   ),
                                   IconButton.filled(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const ChatPage(),
+                                      ),
+                                    );
+                                  },
                                     icon: const Icon(Icons.chat),
                                   ),
                                 ],

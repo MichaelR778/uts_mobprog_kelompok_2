@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
@@ -144,17 +145,16 @@ class OrderScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
-                  Navigator.pop(
-                    context,
-                  );
+                  Provider.of<ChatProvider>(context, listen: false)
+                      .clearMessage();
+                  Navigator.pop(context);
                 },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Spread the content
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Wrapping the text in Expanded to allocate remaining space
                     Expanded(
                       child: FittedBox(
-                        fit: BoxFit.scaleDown, // Scale down the text to avoid overflow
+                        fit: BoxFit.scaleDown, 
                         child: Text(
                           'Pesan ${orderProvider.selectedOption.name}',
                           style: const TextStyle(
@@ -165,12 +165,10 @@ class OrderScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10), // Adding some spacing between text and price
-
-                    // Wrapping the price text in Expanded or Flexible
+                    const SizedBox(width: 10), 
                     Expanded(
                       child: FittedBox(
-                        fit: BoxFit.scaleDown, // Scale down the text to avoid overflow
+                        fit: BoxFit.scaleDown,
                         child: Text(
                           'Rp ${orderProvider.selectedOption.pricePerKm * location.distanceKm}',
                           style: const TextStyle(

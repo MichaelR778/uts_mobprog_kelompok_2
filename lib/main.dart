@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/onboarding_screen.dart';
@@ -11,8 +12,11 @@ void main() async {
   final onboarding = prefs.getBool("onboarding") ?? false;
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => OrderProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
+      ],
       child: MyApp(onboarding: onboarding),
     ),
   );
