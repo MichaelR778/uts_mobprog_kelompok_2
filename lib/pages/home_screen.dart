@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
-import 'package:uts_mobprog_kelompok_2/pages/destinations_placeholder.dart';
+import 'package:uts_mobprog_kelompok_2/pages/my_map_page.dart';
+
+import '../widget/mini_map.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -82,7 +85,7 @@ class HomeWidget extends StatelessWidget {
                                   onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => const DestinationsPlaceholder(),
+                                        builder: (context) => MyMapPage(),
                                       ),
                                     );
                                   },
@@ -217,9 +220,10 @@ class OrderWidget extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Image.network(
-                          'https://palcomtech.ac.id/wp-content/uploads/2023/12/Screenshot-2023-12-27-083853.png',
-                          fit: BoxFit.cover,
+                        // Bungkus MiniMap dalam SizedBox untuk mengatur tinggi
+                        SizedBox(
+                          height: 125, // Atur ukuran map sesuai kebutuhan
+                          child: MiniMap(), // MiniMap yang Anda buat
                         ),
                         Padding(
                           padding: const EdgeInsets.all(12),
@@ -252,7 +256,7 @@ class OrderWidget extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
-                                      orderProvider.locations?.pickup ?? 'Unknown',
+                                      orderProvider.locations?.pickup ?? 'Rumah',
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -265,7 +269,7 @@ class OrderWidget extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
-                                      orderProvider.locations?.destination ?? 'Unknown',
+                                      orderProvider.locations?.destination ?? 'Universitas Tarumanagara',
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),

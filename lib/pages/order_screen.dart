@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
-import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart'; // Import your onboarding screen
+import 'package:uts_mobprog_kelompok_2/pages/root.dart'; // Import your onboarding screen
 
 class OrderScreen extends StatelessWidget {
   final double pickupLatitude;
@@ -24,7 +24,8 @@ class OrderScreen extends StatelessWidget {
     return Consumer<OrderProvider>(
       builder: (context, orderProvider, child) {
         List<VehicleOption> options = orderProvider.vehicleOptions;
-        Locations location = orderProvider.locations!;
+        Locations location = Locations(pickup: 'lokasi 1', destination: 'lokasi 2', distanceKm: 1.0,)
+        ;
 
         return Scaffold(
           backgroundColor: Colors.grey[600],
@@ -143,9 +144,8 @@ class OrderScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to OnboardingScreen
                   );
                 },
                 child: Row(
@@ -191,4 +191,7 @@ class OrderScreen extends StatelessWidget {
       },
     );
   }
+}
+
+class Location {
 }

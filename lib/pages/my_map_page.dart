@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/pages/order_screen.dart';
+
+import '../models/order_provider.dart';
 
 class MyMapPage extends StatefulWidget {
   @override
@@ -17,6 +20,9 @@ class _MyMapPageState extends State<MyMapPage> {
   List<Marker> markers = [];
   LatLng? pickupLocation;
   LatLng? destinationLocation;
+
+  TextEditingController _pickupController = TextEditingController();
+  TextEditingController _destinationController = TextEditingController();
 
   @override
   void initState() {
@@ -54,16 +60,16 @@ class _MyMapPageState extends State<MyMapPage> {
         isLoading = false;
       });
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (latitude != null && longitude != null) {
-          _mapController.move(LatLng(latitude!, longitude!), 13.0);
-        }
+        _mapController.move(LatLng(latitude!, longitude!), 13.0);
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to get location: $e')),
-      );
       setState(() {
+        latitude = -6.2088;
+        longitude = 106.8456;
         isLoading = false;
+      });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _mapController.move(LatLng(latitude!, longitude!), 13.0);
       });
     }
   }
@@ -72,29 +78,31 @@ class _MyMapPageState extends State<MyMapPage> {
     setState(() {
       if (pickupLocation == null) {
         pickupLocation = latLng;
+        _pickupController.text = 'Rumah'; // Isi otomatis dengan "Rumah"
         markers.add(
           Marker(
             point: pickupLocation!,
             width: 40,
             height: 40,
-            child: Icon(Icons.location_on, color: Colors.red, size: 40), // Use child instead of builder
+            child: Icon(Icons.location_on, color: Colors.red, size: 40),
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Pickup location set. Tap again for destination.')),
+          SnackBar(content: Text('Pickup location set to "Rumah". Tap again for destination.')),
         );
       } else if (destinationLocation == null) {
         destinationLocation = latLng;
+        _destinationController.text = 'Universitas Tarumanagara'; // Isi otomatis dengan "Universitas Tarumanagara"
         markers.add(
           Marker(
             point: destinationLocation!,
             width: 40,
             height: 40,
-            child: Icon(Icons.location_on, color: Colors.green, size: 40), // Use child instead of builder
+            child: Icon(Icons.location_on, color: Colors.green, size: 40),
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Destination location set. Press submit to continue.')),
+          SnackBar(content: Text('Destination location set to "Universitas Tarumanagara". Press submit to continue.')),
         );
       }
     });
@@ -122,7 +130,12 @@ class _MyMapPageState extends State<MyMapPage> {
           pickupLocation = null;
           destinationLocation = null;
           markers.clear();
+          _pickupController.clear();
+          _destinationController.clear();
         });
+        if (Provider.of<OrderProvider>(context, listen: false).orderOngoing) {
+          Navigator.pop(context);
+        }
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -135,21 +148,51 @@ class _MyMapPageState extends State<MyMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('My Map')),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : FlutterMap(
-        mapController: _mapController,
-        options: MapOptions(
-          onTap: (tapPosition, point) {
-            _onTap(point);
-          },
-        ),
+      body: Stack(
         children: [
-          TileLayer(
-            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            subdomains: ['a', 'b', 'c'],
+          isLoading
+              ? Center(child: CircularProgressIndicator())
+              : FlutterMap(
+            mapController: _mapController,
+            options: MapOptions(
+              onTap: (tapPosition, point) {
+                _onTap(point);
+              },
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                subdomains: ['a', 'b', 'c'],
+              ),
+              MarkerLayer(markers: markers),
+            ],
           ),
-          MarkerLayer(markers: markers),
+          Positioned(
+            top: 10,
+            left: 10,
+            right: 10,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _pickupController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    labelText: 'Pickup Location',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _destinationController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    labelText: 'Destination Location',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
