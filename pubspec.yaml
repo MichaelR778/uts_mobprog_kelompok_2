@@ -42,7 +42,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -67,7 +66,7 @@ flutter:
    - assets/images/onboarding/onboarding1.png
    - assets/images/onboarding/onboarding2.png
    - assets/images/onboarding/onboarding3.png
-   - assets/profile.jpg
+   - assets/images/profile.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

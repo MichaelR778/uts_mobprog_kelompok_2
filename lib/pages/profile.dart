@@ -46,124 +46,123 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/profile.jpg'),
+      appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 10), 
+          child: Text('Profile', style: TextStyle(color: color9, fontSize: 24)),
+        ),
+        backgroundColor: color1,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+      ),
+      backgroundColor: color9,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              // Profile Picture Section
+              Center(
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('assets/images/profile.png'),
+                  backgroundColor: Colors.transparent,
                 ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                email,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: color6,
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              
+              _buildInfoRow('Nomor Telepon', phone, Icons.phone),
+              const SizedBox(height: 20),
+              _buildInfoRow('Jenis Kelamin', gender, Icons.person),
+              const SizedBox(height: 20),
+              _buildInfoRow('Tanggal Lahir', birthDate, Icons.cake),
+
+              const SizedBox(height: 40),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _logout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: color3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      email,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: color6,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Nomor Telepon',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  phone,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: color6,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Jenis Kelamin',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  gender,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: color6,
-                  ),
-                ),
-                const Text(
-                  'Tanggal Lahir',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  birthDate,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: color6,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // Add logout button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _logout,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: color3,
-                ),
-                child: const Text(
-                  'Logout',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const EditProfilePage()),
           );
+          if (result == true) {
+            _loadProfileData();
+          }
         },
         backgroundColor: color3,
         child: const Icon(Icons.edit),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  Widget _buildInfoRow(String title, String value, IconData icon) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: color3, size: 28),
+        const SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 16,
+                color: color6,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
