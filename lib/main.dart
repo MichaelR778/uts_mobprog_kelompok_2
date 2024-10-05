@@ -5,11 +5,13 @@ import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/pages/login_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/onboarding_screen.dart';
+import 'package:uts_mobprog_kelompok_2/pages/profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool("onboarding") ?? false;
+  final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(
     MultiProvider(
@@ -17,14 +19,15 @@ void main() async {
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => ChatProvider()),
       ],
-      child: MyApp(onboarding: onboarding),
+      child: MyApp(onboarding: onboarding, isLoggedIn: isLoggedIn),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   final bool onboarding;
-  const MyApp({super.key, required this.onboarding});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.onboarding, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Utiwi',
       theme: ThemeData(fontFamily: 'Handjet'),
-      home: onboarding ? const LoginScreen() : const OnboardingScreen(),
+      home: onboarding 
+        ? (isLoggedIn ? const ProfilePage() : const LoginScreen()) 
+        : const OnboardingScreen(),
     );
   }
 }

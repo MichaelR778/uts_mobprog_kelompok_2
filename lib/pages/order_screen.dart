@@ -4,7 +4,6 @@ import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
-import 'package:uts_mobprog_kelompok_2/pages/root.dart'; // Import your onboarding screen
 
 class OrderScreen extends StatelessWidget {
   final double pickupLatitude;

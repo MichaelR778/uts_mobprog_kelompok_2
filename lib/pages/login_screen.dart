@@ -26,6 +26,52 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     if (_formKey.currentState!.validate()) {
       final prefs = await SharedPreferences.getInstance();
+      String registeredPhone = prefs.getString('phone') ?? '';
+      String registeredPin = prefs.getString('pin') ?? '';
+
+      bool isPhoneCorrect = _phoneController.text == registeredPhone;
+      bool isPinCorrect = _pinController.text == registeredPin;
+
+      if (!prefs.containsKey('birthDate')) {
+        await prefs.setString('birthDate', 'Tanggal Lahir belum diisi');
+      }
+      if (!prefs.containsKey('gender')) {
+        await prefs.setString('gender', 'Jenis Kelamin belum diisi');
+      }
+
+      // Jika Pin dan No HP salah
+      if (!isPhoneCorrect && !isPinCorrect) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Nomor telepon dan PIN salah!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      // jika No Telepon salah
+      if (!isPhoneCorrect) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Nomor telepon anda salah!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      // jika PIN salah
+      if (!isPinCorrect) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('PIN anda salah!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+      await prefs.setBool('isLoggedIn', true);
       await prefs.setBool("onboarding", false);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const Root()),
@@ -114,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red)),
+                      
                     ),
                     keyboardType: TextInputType.number,
                     obscureText: true,

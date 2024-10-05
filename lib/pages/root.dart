@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart';
-import '../components/color.dart';
+import 'package:uts_mobprog_kelompok_2/pages/profile.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key});
@@ -15,10 +15,6 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color9,
-      appBar: AppBar(
-        title: const Text('Utiwi'),
-      ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -35,7 +31,7 @@ class _RootState extends State<Root> {
       body: <Widget>[
         HomeScreen(),
         Text('History'),
-        Text('Profile'),
+        ProfilePage(),
       ][currPageIndex],
     );
   }
