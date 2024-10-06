@@ -7,22 +7,22 @@ class OrderProvider extends ChangeNotifier {
     VehicleOption(
       name: 'Motor listrik',
       pricePerKm: 6000,
-      iconPath: 'images/motor_listrik.jpg',
+      iconPath: 'images/vehicle/motor_listrik.png',
     ),
     VehicleOption(
       name: 'Motor',
       pricePerKm: 7000,
-      iconPath: 'images/motor.jpg',
+      iconPath: 'images/vehicle/motor.png',
     ),
     VehicleOption(
       name: 'Mobil listrik',
       pricePerKm: 13000,
-      iconPath: 'images/mobil_listrik.jpg',
+      iconPath: 'images/vehicle/mobil_listrik.png',
     ),
     VehicleOption(
       name: 'Mobil',
       pricePerKm: 15000,
-      iconPath: 'images/mobil.jpg',
+      iconPath: 'images/vehicle/mobil.png',
     ),
   ];
 
@@ -31,7 +31,7 @@ class OrderProvider extends ChangeNotifier {
   VehicleOption _selectedOption = VehicleOption(
     name: 'Motor listrik',
     pricePerKm: 6000,
-    iconPath: 'images/motor_listrik.jpg',
+    iconPath: 'images/vehicle/motor_listrik.png',
   );
 
   // getter

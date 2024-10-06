@@ -9,3 +9,5 @@ const color6 = Color(0xFF90E0EF);
 const color7 = Color(0xFFADE8F4);
 const color8 = Color(0xFFCAF0F8);
 const color9 = Color(0xFFFFFFFF);
+const colorGrey = Color(0xFF9E9E9E);
+const colorBlack = Color(0xFF000000);

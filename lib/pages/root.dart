@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
+import 'package:uts_mobprog_kelompok_2/pages/history_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/home_screen.dart';
 import 'package:uts_mobprog_kelompok_2/pages/profile.dart';
 
@@ -15,22 +17,28 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currPageIndex = index;
-          });
-        },
-        selectedIndex: currPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.list), label: 'History'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+      backgroundColor: color9,
+      bottomNavigationBar: Material(
+        elevation: 20,
+        child: NavigationBar(
+          backgroundColor: color9,
+          indicatorColor: color1,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currPageIndex = index;
+            });
+          },
+          selectedIndex: currPageIndex,
+          destinations: <Widget>[
+            NavigationDestination(icon: Icon(Icons.home, color: currPageIndex == 0 ? color9 : color1), label: 'Beranda',),
+            NavigationDestination(icon: Icon(Icons.list, color: currPageIndex == 1 ? color9 : color1), label: 'Riwayat',),
+            NavigationDestination(icon: Icon(Icons.person, color: currPageIndex == 2 ? color9 : color1), label: 'Profile',),
+          ],
+        ),
       ),
-      body: <Widget>[
+      body: const <Widget>[
         HomeScreen(),
-        Text('History'),
+        HistoryTransactionScreen(),
         ProfilePage(),
       ][currPageIndex],
     );
