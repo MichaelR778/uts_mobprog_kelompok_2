@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/pages/order_screen.dart';
 
 import '../models/order_provider.dart';
@@ -156,7 +157,27 @@ class _MyMapPageState extends State<MyMapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My Map')),
+      backgroundColor: color9,
+      appBar: AppBar(
+        title: const Text('My Map', 
+          style: TextStyle(
+            color: color9,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: color9),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        backgroundColor: color1,
+      ),
       body: Stack(
         children: [
           isLoading

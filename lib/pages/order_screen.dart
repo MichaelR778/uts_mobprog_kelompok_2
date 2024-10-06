@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/locations.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
@@ -86,8 +88,8 @@ class OrderScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: options[index].name == orderProvider.selectedOption.name
-                                        ? Colors.indigo
-                                        : Colors.grey[300]!,
+                                        ? color1
+                                        : colorGrey!,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -95,8 +97,8 @@ class OrderScreen extends StatelessWidget {
                                 child: ListTile(
                                   leading: Container(
                                     margin: const EdgeInsets.all(5),
-                                    width: 40,
-                                    height: 40,
+                                    width: 50,
+                                    height: 50,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(options[index].iconPath),
@@ -104,7 +106,7 @@ class OrderScreen extends StatelessWidget {
                                   ),
                                   title: Text(options[index].name),
                                   trailing: Text(
-                                    'Rp ${options[index].pricePerKm * location.distanceKm}',
+                                    'Rp${NumberFormat('#,##0', 'id_ID').format(options[index].pricePerKm * location.distanceKm)}',
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   selected: options[index].name == orderProvider.selectedOption.name,
@@ -127,7 +129,7 @@ class OrderScreen extends StatelessWidget {
 
           floatingActionButton: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey[300]!),
+              border: Border.all(color: colorGrey!),
               color: Theme.of(context).cardColor,
             ),
             height: 100,
@@ -137,7 +139,7 @@ class OrderScreen extends StatelessWidget {
               child: TextButton(
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5),
-                  backgroundColor: Colors.indigo,
+                  backgroundColor: color1,
                 ),
                 onPressed: () {
                   orderProvider.orderOngoing = true;
@@ -156,7 +158,7 @@ class OrderScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: color9,
                           ),
                         ),
                       ),
@@ -166,11 +168,11 @@ class OrderScreen extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          'Rp ${orderProvider.selectedOption.pricePerKm * location.distanceKm}',
+                          'Rp${NumberFormat('#,##0', 'id_ID').format(orderProvider.selectedOption.pricePerKm * location.distanceKm)}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: color9,
                           ),
                         ),
                       ),
@@ -185,7 +187,4 @@ class OrderScreen extends StatelessWidget {
       },
     );
   }
-}
-
-class Location {
 }

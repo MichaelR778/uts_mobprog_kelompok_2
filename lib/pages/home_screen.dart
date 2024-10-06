@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/vehicle_option.dart';
 import 'package:uts_mobprog_kelompok_2/pages/call_page.dart';
@@ -20,6 +22,20 @@ class HomeScreen extends StatelessWidget {
         }
 
         return Scaffold(
+          appBar: AppBar(
+            title: const Padding(
+              padding: EdgeInsets.only(bottom: 10), 
+              child: Text('Beranda', style: TextStyle(color: color9, fontSize: 24)),
+            ),
+            backgroundColor: color1,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+            ),
+          ),
+          backgroundColor: color9,
           body: orderProvider.orderOngoing
               ? const OrderWidget()
               : HomeWidget(options: orderProvider.vehicleOptions),
@@ -53,11 +69,12 @@ class HomeWidget extends StatelessWidget {
                       Card(
                         elevation: 4,
                         margin: const EdgeInsets.all(20),
-                        color: Colors.indigo[300],
+                        color: color1,
                         child: Container(height: 200),
                       ),
                       Card(
                         elevation: 0,
+                        color: color9,
                         margin: const EdgeInsets.all(20),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -100,6 +117,8 @@ class HomeWidget extends StatelessWidget {
                   Card(
                     elevation: 4,
                     margin: const EdgeInsets.all(20),
+                    color: color9, 
+                    shadowColor: colorGrey.withOpacity(0.5),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -112,7 +131,7 @@ class HomeWidget extends StatelessWidget {
                                 fontSize: 18,
                               ),
                             ),
-                            subtitle: Text('Layanan yang tersedia:'),
+                            subtitle: Text('Layanan yang tersedia'),
                           ),
                           GridView.builder(
                             shrinkWrap: true,
@@ -127,8 +146,8 @@ class HomeWidget extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: 60,
-                                    height: 60,
+                                    width: 80,
+                                    height: 80,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(options[index].iconPath),
@@ -177,7 +196,7 @@ class OrderWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 45,
-                        backgroundColor: Colors.grey[300],
+                        backgroundColor: color9,
                         child: Padding(
                           padding: const EdgeInsets.all(2),
                           child: ClipOval(
@@ -189,7 +208,7 @@ class OrderWidget extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.surface,
-                            border: Border.all(color: Colors.grey[300]!),
+                            border: Border.all(color: colorGrey!),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: const EdgeInsets.all(12.0),
@@ -214,8 +233,8 @@ class OrderWidget extends StatelessWidget {
                     margin: const EdgeInsets.all(20),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      border: Border.all(color: Colors.grey[300]!),
+                      color: color9,
+                      border: Border.all(color: colorGrey!),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -247,6 +266,9 @@ class OrderWidget extends StatelessWidget {
                                       ),
                                     );
                                   },
+                                  style: IconButton.styleFrom(
+                                    backgroundColor: color2,
+                                  ),
                                     icon: const Icon(Icons.phone),
                                   ),
                                   IconButton.filled(
@@ -258,6 +280,9 @@ class OrderWidget extends StatelessWidget {
                                       ),
                                     );
                                   },
+                                  style: IconButton.styleFrom(
+                                    backgroundColor: color1,
+                                  ),
                                     icon: const Icon(Icons.chat),
                                   ),
                                 ],
@@ -291,15 +316,26 @@ class OrderWidget extends StatelessWidget {
                               const SizedBox(height: 12),
                               Row(
                                 children: [
+                                  const Expanded(child: Text('Jenis Kendaraan :')), 
+                                  const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
                                       orderProvider.selectedOption.name,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  const Spacer(),
-                                  Text(
-                                    'Rp ${orderProvider.selectedOption.pricePerKm * (orderProvider.locations?.distanceKm ?? 2)}',
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              Row(
+                                children: [
+                                  const Expanded(child: Text('Harga :')), 
+                                  const SizedBox(width: 8),
+                                  Flexible(
+                                    child: Text(
+                                      'Rp${NumberFormat('#,##0', 'id_ID').format(orderProvider.selectedOption.pricePerKm * (orderProvider.locations?.distanceKm ?? 2))}',
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -311,12 +347,18 @@ class OrderWidget extends StatelessWidget {
                                     onPressed: () {
                                       Provider.of<OrderProvider>(context, listen: false).orderOngoing = false;
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: color2,
+                                    ),
                                     child: const Text('Batalkan pesanan'),
                                   ),
                                   FilledButton(
                                     onPressed: () {
                                       Provider.of<OrderProvider>(context, listen: false).orderOngoing = false;
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: color1,
+                                    ),
                                     child: const Text('Pesanan selesai'),
                                   ),
                                 ],

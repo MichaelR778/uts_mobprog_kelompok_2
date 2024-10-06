@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_mobprog_kelompok_2/components/chat_bubble.dart';
+import 'package:uts_mobprog_kelompok_2/components/color.dart';
 import 'package:uts_mobprog_kelompok_2/models/chat_provider.dart';
 import 'package:uts_mobprog_kelompok_2/models/message.dart';
 import 'package:uts_mobprog_kelompok_2/models/order_provider.dart';
@@ -40,6 +41,7 @@ class _ChatPageState extends State<ChatPage> {
                 CircleAvatar(
                   backgroundImage:
                       AssetImage(orderProvider.selectedOption.iconPath),
+                      backgroundColor: Colors.grey[200],
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -87,10 +89,10 @@ class _ChatPageState extends State<ChatPage> {
                         child: TextField(
                           decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: colorGrey),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: BorderSide(color: color1),
                             ),
                           ),
                           controller: textController,
@@ -99,7 +101,7 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                     Container(
                       decoration: const BoxDecoration(
-                        color: Colors.green,
+                        color: color2,
                         shape: BoxShape.circle,
                       ),
                       margin: const EdgeInsets.only(right: 25),
@@ -111,7 +113,7 @@ class _ChatPageState extends State<ChatPage> {
                         },
                         icon: const Icon(
                           Icons.arrow_upward,
-                          color: Colors.white,
+                          color: color9,
                         ),
                       ),
                     ),

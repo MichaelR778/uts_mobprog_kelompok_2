@@ -25,7 +25,7 @@ class ChatProvider extends ChangeNotifier {
 
     await Future.delayed(const Duration(milliseconds: 1500));
     _driverTyping = false;
-    addMessage(Message(text: 'sabar, macet nih', byUser: false));
+    addMessage(Message(text: 'Mohon menunggu, driver sedang dalam perjalanan', byUser: false));
     notifyListeners();
   }
 }
