@@ -9,7 +9,8 @@ class HistoryTransactionScreen extends StatefulWidget {
   const HistoryTransactionScreen({super.key});
 
   @override
-  State<HistoryTransactionScreen> createState() => _HistoryTransactionScreenState();
+  State<HistoryTransactionScreen> createState() =>
+      _HistoryTransactionScreenState();
 }
 
 class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
@@ -20,7 +21,7 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.only(bottom: 10), 
+          padding: EdgeInsets.only(bottom: 10),
           child: Text('Riwayat', style: TextStyle(color: color9, fontSize: 24)),
         ),
         backgroundColor: color1,
@@ -43,7 +44,8 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
               itemBuilder: (context, index) {
                 final transaction = transactions[index];
                 return Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  margin:
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                   decoration: BoxDecoration(
                     color: color9,
                     borderRadius: BorderRadius.circular(10),
@@ -57,19 +59,21 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                     ],
                   ),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
-                     onTap: () {
+                    contentPadding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 5, bottom: 5),
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HistroryDetailScreen(transaction: transaction),
+                          builder: (context) =>
+                              HistroryDetailScreen(transaction: transaction),
                         ),
                       );
                     },
                     leading: Image.asset(
                       transaction.vehicleImage,
-                      width: 80,
-                      height: 80,
+                      width: 60,
+                      height: 60,
                     ),
                     title: Padding(
                       padding: const EdgeInsets.only(bottom: 2.0),
@@ -77,7 +81,9 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                         transaction.destination,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: transaction.status == 'Perjalanan Selesai' ? color1 : colorGrey,
+                          color: transaction.status == 'Perjalanan Selesai'
+                              ? color1
+                              : colorGrey,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -90,7 +96,9 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                           child: Text(
                             '${transaction.transactionTime}',
                             style: TextStyle(
-                              color: transaction.status == 'Perjalanan Selesai' ? colorBlack : colorGrey,
+                              color: transaction.status == 'Perjalanan Selesai'
+                                  ? colorBlack
+                                  : colorGrey,
                             ),
                           ),
                         ),
@@ -99,22 +107,31 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                           child: Text(
                             'Rp${NumberFormat('#,##0', 'id_ID').format(transaction.amount)}',
                             style: TextStyle(
-                              color: transaction.status == 'Perjalanan Selesai' ? colorBlack : colorGrey,
+                              color: transaction.status == 'Perjalanan Selesai'
+                                  ? colorBlack
+                                  : colorGrey,
                             ),
                           ),
                         ),
                         Row(
                           children: [
                             Icon(
-                              transaction.status == 'Perjalanan Selesai' ? Icons.check_circle_rounded : Icons.cancel,
-                              color: transaction.status == 'Perjalanan Selesai' ? color2 : colorGrey,
+                              transaction.status == 'Perjalanan Selesai'
+                                  ? Icons.check_circle_rounded
+                                  : Icons.cancel,
+                              color: transaction.status == 'Perjalanan Selesai'
+                                  ? color2
+                                  : colorGrey,
                               size: 18,
                             ),
                             const SizedBox(width: 4),
                             Text(
                               transaction.status,
                               style: TextStyle(
-                                color: transaction.status == 'Perjalanan Selesai' ? color2 : colorGrey,
+                                color:
+                                    transaction.status == 'Perjalanan Selesai'
+                                        ? color2
+                                        : colorGrey,
                               ),
                             ),
                           ],
@@ -128,14 +145,19 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                             builder: (context) => const Root(),
                           ),
                           (route) => false,
-                        );  
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: transaction.status == 'Perjalanan Selesai' ? color2 : colorGrey,
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), 
+                        backgroundColor:
+                            transaction.status == 'Perjalanan Selesai'
+                                ? color2
+                                : colorGrey,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         minimumSize: const Size(80, 30),
                       ),
-                      child: const Text('Pesan Lagi', style: TextStyle(color: color9)),
+                      child: const Text('Pesan Lagi',
+                          style: TextStyle(color: color9)),
                     ),
                   ),
                 );

@@ -10,7 +10,6 @@ import 'package:uts_mobprog_kelompok_2/pages/my_map_page.dart';
 
 import '../widget/mini_map.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -18,14 +17,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(
       builder: (context, orderProvider, child) {
-        if (!orderProvider.orderOngoing) {
-        }
+        if (!orderProvider.orderOngoing) {}
 
         return Scaffold(
           appBar: AppBar(
             title: const Padding(
-              padding: EdgeInsets.only(bottom: 10), 
-              child: Text('Beranda', style: TextStyle(color: color9, fontSize: 24)),
+              padding: EdgeInsets.only(bottom: 10),
+              child: Text('Beranda',
+                  style: TextStyle(color: color9, fontSize: 24)),
             ),
             backgroundColor: color1,
             shape: const RoundedRectangleBorder(
@@ -117,7 +116,7 @@ class HomeWidget extends StatelessWidget {
                   Card(
                     elevation: 4,
                     margin: const EdgeInsets.all(20),
-                    color: color9, 
+                    color: color9,
                     shadowColor: colorGrey.withOpacity(0.5),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -136,7 +135,8 @@ class HomeWidget extends StatelessWidget {
                           GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               childAspectRatio: 1.1,
                             ),
@@ -146,11 +146,12 @@ class HomeWidget extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: 80,
-                                    height: 80,
+                                    width: 60,
+                                    height: 60,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
-                                      child: Image.asset(options[index].iconPath),
+                                      child:
+                                          Image.asset(options[index].iconPath),
                                     ),
                                   ),
                                   Text(
@@ -200,14 +201,15 @@ class OrderWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(2),
                           child: ClipOval(
-                            child: Image.asset(orderProvider.selectedOption.iconPath),
+                            child: Image.asset(
+                                orderProvider.selectedOption.iconPath),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
+                            color: color9,
                             border: Border.all(color: colorGrey!),
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -259,30 +261,32 @@ class OrderWidget extends StatelessWidget {
                                   const Spacer(),
                                   IconButton.filled(
                                     onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const CallPage(),
-                                      ),
-                                    );
-                                  },
-                                  style: IconButton.styleFrom(
-                                    backgroundColor: color2,
-                                  ),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CallPage(),
+                                        ),
+                                      );
+                                    },
+                                    style: IconButton.styleFrom(
+                                      backgroundColor: color2,
+                                    ),
                                     icon: const Icon(Icons.phone),
                                   ),
                                   IconButton.filled(
                                     onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const ChatPage(),
-                                      ),
-                                    );
-                                  },
-                                  style: IconButton.styleFrom(
-                                    backgroundColor: color1,
-                                  ),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ChatPage(),
+                                        ),
+                                      );
+                                    },
+                                    style: IconButton.styleFrom(
+                                      backgroundColor: color1,
+                                    ),
                                     icon: const Icon(Icons.chat),
                                   ),
                                 ],
@@ -290,11 +294,13 @@ class OrderWidget extends StatelessWidget {
                               const SizedBox(height: 12),
                               Row(
                                 children: [
-                                  const Expanded(child: Text('Lokasi pick-up :')),
+                                  const Expanded(
+                                      child: Text('Lokasi pick-up :')),
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
-                                      orderProvider.locations?.pickup ?? 'Rumah',
+                                      orderProvider.locations?.pickup ??
+                                          'Rumah',
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -307,7 +313,8 @@ class OrderWidget extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
-                                      orderProvider.locations?.destination ?? 'Universitas Tarumanagara',
+                                      orderProvider.locations?.destination ??
+                                          'Universitas Tarumanagara',
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -316,7 +323,8 @@ class OrderWidget extends StatelessWidget {
                               const SizedBox(height: 12),
                               Row(
                                 children: [
-                                  const Expanded(child: Text('Jenis Kendaraan :')), 
+                                  const Expanded(
+                                      child: Text('Jenis Kendaraan :')),
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
@@ -329,7 +337,7 @@ class OrderWidget extends StatelessWidget {
                               const SizedBox(height: 12),
                               Row(
                                 children: [
-                                  const Expanded(child: Text('Harga :')), 
+                                  const Expanded(child: Text('Harga :')),
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: Text(
@@ -341,11 +349,14 @@ class OrderWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 25),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   FilledButton(
                                     onPressed: () {
-                                      Provider.of<OrderProvider>(context, listen: false).orderOngoing = false;
+                                      Provider.of<OrderProvider>(context,
+                                              listen: false)
+                                          .orderOngoing = false;
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: color2,
@@ -354,7 +365,9 @@ class OrderWidget extends StatelessWidget {
                                   ),
                                   FilledButton(
                                     onPressed: () {
-                                      Provider.of<OrderProvider>(context, listen: false).orderOngoing = false;
+                                      Provider.of<OrderProvider>(context,
+                                              listen: false)
+                                          .orderOngoing = false;
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: color1,
